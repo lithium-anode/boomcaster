@@ -11,16 +11,11 @@
    - **Clone** your forked repository to your local machine using [Git](https://docs.github.com/en/get-started/getting-started-with-git/set-up-git) (make sure it's installed)
 
    ```bash
-   git clone git@github.com:your-username/nexus-framework.git
+   git clone git@github.com:your-username/boomcaster.git
    ```
 
 4. **Install Dependencies**
-   Navigate to the project directory and install any necessary dependencies. Ensure you have Go installed on your machine.
-
-   ```bash
-   cd nexus-framework
-   go run main.go   
-   ```
+   Navigate to the project directory and activate the env or install pygame. Ensure you have python installed on your machine.
 
 5. **Make Your Changes**
    After cloning and setting up your branch, make the necessary changes to the code in your IDE.
