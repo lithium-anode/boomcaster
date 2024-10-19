@@ -5,6 +5,26 @@ wall_texture_path = 'wall.png'
 floor_texture_path = 'floor.png'
 sky_texture_path = 'sky.png'
 
+sin_cache_dict = {}
+cos_cache_dict = {}
+tan_cache_dict = {}
+
+# 3 functions to cache the calculated trig values
+def cached_sin(angle):
+    if angle not in sin_cache_dict:
+        sin_cache_dict[angle] = math.sin(angle)
+    return sin_cache_dict[angle]
+
+def cached_cos(angle):
+    if angle not in cos_cache_dict:
+        cos_cache_dict[angle] = math.cos(angle)
+    return cos_cache_dict[angle]
+
+def cached_tan(angle):
+    if angle not in tan_cache_dict:
+        tan_cache_dict[angle] = math.tan(angle)
+    return tan_cache_dict[angle]
+
 world = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -40,8 +60,8 @@ def lighting(screen, doomguy_pos, doomguy_vector):
 
     main_vector = doomguy_vector - (math.pi / 3) / 2 + 0.1
     for ray in range(800):
-        sin_a = math.sin(main_vector)
-        cos_a = math.cos(main_vector)
+        sin_a = cached_sin(main_vector)
+        cos_a = cached_cos(main_vector)
 
         y_hor, dy = (y_map + 1, 1) if sin_a > 0 else (y_map - 1e-6, -1)
 
@@ -80,9 +100,9 @@ def lighting(screen, doomguy_pos, doomguy_vector):
         else:
             depth = depth_hor
 
-        depth *= math.cos(doomguy_vector - main_vector)
+        depth *= cached_cos(doomguy_vector - main_vector)
 
-        proj_height = 800 / math.tan((math.pi / 3) / 2) / (depth + 0.0001)
+        proj_height = 800 / cached_tan((math.pi / 3) / 2) / (depth + 0.0001)
 
         color = [255 / (1 + depth ** 5 * 0.00002)] * 3
         pygame.draw.rect(screen, color, (ray * scale, 540 - proj_height // 2, scale, proj_height))
@@ -108,8 +128,8 @@ while True:
         if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_q):
             pygame.quit()
 
-    sin_a = math.sin(doomguy_vector)
-    cos_a = math.cos(doomguy_vector)
+    sin_a = cached_sin(doomguy_vector)
+    cos_a = cached_cos(doomguy_vector)
     dx, dy = 0, 0
     speed = doomguy_speed * dt
     speed_sin = speed * sin_a
