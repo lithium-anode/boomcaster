@@ -169,7 +169,7 @@ def lighting(screen, doomguy_pos, doomguy_vector):
 
 # performance before cache implementation
 print("performance before cache implementation:\n")
-print(timeit.timeit(stmt=code_without_cache), number=1)
+print(timeit.timeit(stmt=code_without_cache, number=1))
 # performance after cache implementation
 print("\nperformance after cache implementation:\n")
 print(timeit.timeit(setup=code_setup_with_cache, stmt=code_with_cache, number=1))
