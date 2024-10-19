@@ -1,29 +1,15 @@
 import pygame
 import math
+import functools 
 
 wall_texture_path = 'wall.png'
 floor_texture_path = 'floor.png'
 sky_texture_path = 'sky.png'
 
-sin_cache_dict = {}
-cos_cache_dict = {}
-tan_cache_dict = {}
-
 # 3 functions to cache the calculated trig values
-def cached_sin(angle):
-    if angle not in sin_cache_dict:
-        sin_cache_dict[angle] = math.sin(angle)
-    return sin_cache_dict[angle]
-
-def cached_cos(angle):
-    if angle not in cos_cache_dict:
-        cos_cache_dict[angle] = math.cos(angle)
-    return cos_cache_dict[angle]
-
-def cached_tan(angle):
-    if angle not in tan_cache_dict:
-        tan_cache_dict[angle] = math.tan(angle)
-    return tan_cache_dict[angle]
+cached_sin = functools.cache(math.sin)
+cached_cos = functools.cache(math.cos)
+cached_tan = functools.cache(math.tan)
 
 world = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],

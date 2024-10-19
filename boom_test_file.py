@@ -93,21 +93,6 @@ def lighting(screen, doomguy_pos, doomguy_vector):
 """
 
 code_with_cache = """
-def cached_sin(angle):
-    if angle not in sin_cache_dict:
-        sin_cache_dict[angle] = math.sin(angle)
-    return sin_cache_dict[angle]
-
-def cached_cos(angle):
-    if angle not in cos_cache_dict:
-        cos_cache_dict[angle] = math.cos(angle)
-    return cos_cache_dict[angle]
-
-def cached_tan(angle):
-    if angle not in tan_cache_dict:
-        tan_cache_dict[angle] = math.tan(angle)
-    return tan_cache_dict[angle]
-
 def lighting(screen, doomguy_pos, doomguy_vector):
     ox, oy = doomguy_pos
     x_map, y_map = int(ox), int(oy)
@@ -166,8 +151,8 @@ def lighting(screen, doomguy_pos, doomguy_vector):
 
 
 # performance before cache implementation
-print("performance before cache implementation:\n")
+print("\nperformance before cache implementation:")
 print(timeit.timeit(stmt=code_without_cache, number=1))
 # performance after cache implementation
-print("\nperformance after cache implementation:\n")
+print("\nperformance after cache implementation:")
 print(timeit.timeit(stmt=code_with_cache, number=1))
